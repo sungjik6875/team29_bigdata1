@@ -14,7 +14,7 @@ class Profile(models.Model):
 
     @property
     def movies(self):
-        ratings = self.rating_set.all()
+        ratings = self.user.rating_set.all()
         movies_list = []
         for rating in ratings:
             movies_list.append(rating.movie.title)
@@ -66,6 +66,15 @@ class Movie(models.Model):
         for rating in ratings:
             total += rating.rating
         return round(total/views, 3)
+
+    @property
+    def users(self):
+        ratings = self.rating_set.all()
+        user_list = []
+        for rating in ratings:
+            user_list.append(rating.user.username)
+        
+        return user_list
         
     def __str__(self):
         return self.title

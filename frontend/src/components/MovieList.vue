@@ -44,5 +44,8 @@ export default {
       return this.movieListCards.slice(this.cardsPerPage * (this.page - 1), this.cardsPerPage * this.page)
     },
   },
+  created() {
+    console.log("check")
+  }
 };
 </script>

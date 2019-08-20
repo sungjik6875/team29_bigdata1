@@ -14,14 +14,14 @@ const mutations = {
 const actions = {
   async getUserInfo({ commit }, params) {
     const response = await api.getUserInfo(params)
-    // console.log(response.data)
+    console.log(response.data)
     const userInfo = {
       id: response.data.id,
       username: response.data.username,
       gender: response.data.gender,
       age: response.data.age,
       occupation: response.data.occupation,
-      movies: response.data.movies
+      movies: response.data.movies || []
     }
     commit('setUserInfo', userInfo)
   }

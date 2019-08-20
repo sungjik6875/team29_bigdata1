@@ -15,7 +15,8 @@
       <v-flex xs7>
         <v-btn large color="red white--text" @click="sortMoviesByViews">Views</v-btn>
         <v-btn large color="red white--text" @click="sortMoviesByScores">Scores</v-btn>
-        <MovieList :movie-list-cards="movieList" />
+        <!-- <MovieList :movie-list-cards="movieList" /> -->
+        <router-view />
       </v-flex>
     </v-layout>
   </v-container>
@@ -24,10 +25,10 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import MovieSearchForm from "../MovieSearchForm";
-import MovieList from "../MovieList";
+// import MovieList from "../MovieList";
 export default {
   components: {
-    MovieList,
+    // MovieList,
     MovieSearchForm
   },
   data: () => ({}),
@@ -41,10 +42,23 @@ export default {
     ...mapMutations("movie", ["sortMovies"]),
     sortMoviesByViews() {
       this.sortMovies('v')
+      this.showMovieList()
     },
     sortMoviesByScores() {
       this.sortMovies('r')
+      this.showMovieList()
+    },
+    showMovieList() {
+      this.$router.push({ 
+        name: 'movie-list', 
+        params: {
+          movieListCards : this.movieList 
+        }
+      })
     }
+  },
+  created() {
+    this.showMovieList()
   }
 };
 </script>

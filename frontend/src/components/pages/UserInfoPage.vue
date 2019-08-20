@@ -18,6 +18,12 @@
         <div> {{ userInfo.gender }}</div>
         <div> {{ userInfo.age }}</div>
         <div> {{ userInfo.occupation }}</div>
+        <div> 해당 유저가 관람한 영화 </div>
+        <ul>
+          <li v-for="movie in userInfo.movies">
+            {{ movie }}
+          </li>
+        </ul>
       </v-flex>
     </v-layout>
   </v-container>

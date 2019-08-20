@@ -40,7 +40,6 @@
 </template>
 
 <script>
-import router from "./router";
 
 export default {
   data: () => ({
@@ -60,7 +59,7 @@ export default {
   }),
   methods: {
     goTo: function(path) {
-      router.push({ name: path });
+      this.$router.push({ name: path });
     }
   }
 };
