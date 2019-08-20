@@ -5,7 +5,10 @@
       <!-- 검색 폼 -->
       <v-flex xs6>
         <div class="display-2 pa-10">영화 검색</div>
-        <MovieSearchForm :submit="searchMovies" />
+        <MovieSearchForm 
+          @submitByName="searchMovies"
+          @submitByGenre="searchMovies"
+        />
       </v-flex>
       <!-- 검색 결과 -->
       <v-flex xs7>
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 import MovieSearchForm from "../MovieSearchForm";
 import MovieList from "../MovieList";
 export default {
@@ -27,9 +30,11 @@ export default {
   data: () => ({}),
   computed: {
     ...mapState({
-      movieList: state => state.data.movieSearchList
+      movieList: state => state.movie.movieSearchList
     })
   },
-  methods: mapActions("data", ["searchMovies"])
+  methods: {
+    ...mapActions("movie", ["searchMovies"]),
+  }
 };
 </script>

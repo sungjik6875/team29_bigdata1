@@ -50,6 +50,11 @@ export default {
         icon: "mdi-movie",
         text: "영화 검색",
         path: "movie-search"
+      },
+      { 
+        icon: "fas fa-user",
+        text: "사용자 찾기",
+        path: "user-info"
       }
     ]
   }),

@@ -4,20 +4,20 @@ import api from '../../api'
 const state = {
   // shape: [{ id, title, genres, viewCnt, rating }]
   movieSearchList: [],
+  testMessage: '',
 }
 
 // actions
 const actions = {
   async searchMovies({ commit }, params) {
-    const resp = await api.searchMovies(params)
-    const movies = resp.data.map(d => ({
-      id: d.id,
-      title: d.title,
-      genres: d.genres_array,
-      viewCnt: d.view_cnt,
-      rating: d.average_rating,
+    const response = await api.searchMovies(params)
+    const movies = response.data.map(data => ({
+      id: data.id,
+      title: data.title,
+      genres: data.genres_array,
+      viewCnt: data.view_cnt,
+      rating: data.average_rating,
     }))
-
     commit('setMovieSearchList', movies)
   },
 }
@@ -25,8 +25,8 @@ const actions = {
 // mutations
 const mutations = {
   setMovieSearchList(state, movies) {
-    state.movieSearchList = movies.map(m => m)
-  },
+    state.movieSearchList = movies.map(movie => movie)
+  }
 }
 
 export default {
