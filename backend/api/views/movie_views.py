@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from api.models import Movie
+
 from api.serializers import MovieSerializer
 from rest_framework.response import Response
 
@@ -9,23 +10,28 @@ from rest_framework.response import Response
 def movies(request):
 
     if request.method == 'GET':
-        id = request.GET.get('id', request.GET.get('movie_id', None))
-        title = request.GET.get('title', None)
+        # Search Movies By Title
+        if request.GET.get('key') == 'title':
+            id = request.GET.get('id', request.GET.get('movie_id', None))
+            title = request.GET.get('title', None)
+            movies = Movie.objects.all()
 
-        movies = Movie.objects.all()
+            if id:
+                movies = movies.filter(pk=id)
+            if title:
+                movies = movies.filter(title__icontains=title)
 
-        if id:
-            movies = movies.filter(pk=id)
-        if title:
-            movies = movies.filter(title__icontains=title)
+        # Search Movies By Genres
+        else: 
+            genre = request.GET.get('genre', 'All')
+            if genre != 'All': 
+                movies = Movie.objects.all().filter(genres__icontains=genre)
+            else:
+                movies = Movie.objects.all()
 
         serializer = MovieSerializer(movies, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
-    if request.method == 'DELETE':
-        movie = Movie.objects.all()
-        movie.delete()
-        return Response(status=status.HTTP_200_OK)
 
     if request.method == 'POST':
         movies = request.data.get('movies', None)
@@ -42,3 +48,14 @@ def movies(request):
             Movie(id=id, title=title, genres='|'.join(genres)).save()
 
         return Response(status=status.HTTP_200_OK)
+
+
+    if request.method == 'DELETE':
+        movie = Movie.objects.all()
+        movie.delete()
+        return Response(status=status.HTTP_200_OK)
+
+
+    
+    
+

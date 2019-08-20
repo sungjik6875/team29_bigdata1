@@ -3,6 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from api.models import create_profile
 
+from django.contrib.auth.models import User
+from api.models import Profile
+from api.serializers import ProfileSerializer
+
+from django.shortcuts import get_object_or_404
+
 
 @api_view(['POST'])
 def signup_many(request):
@@ -20,3 +26,19 @@ def signup_many(request):
                            occupation=occupation, gender=gender)
 
         return Response(status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+def get_user_info(request):
+    print(request.GET.get("userId"))
+    user_id = request.GET.get("userId")
+    print("django", user_id)
+    user = User.objects.get(pk=user_id)
+    user_info = Profile.objects.get(user=user)
+
+    serializer = ProfileSerializer(user_info, many=False)
+    return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+    
+    
+

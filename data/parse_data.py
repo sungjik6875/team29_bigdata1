@@ -1,5 +1,6 @@
 import requests
 import json
+from datetime import datetime
 
 API_URL = 'http://localhost:8000/api/'
 headers = {'content-type': 'application/json'}
@@ -53,11 +54,30 @@ def create_movies():
 
 
 def create_ratings(num_users):
-    pass
+    rating_data = open('./ratings.dat', 'r', encoding='ISO-8859-1')
+    request_data = {'ratings': []}
+
+    for line in rating_data.readlines():
+        [user_id, movie_id, rating, times_rawdata] = line.split('::')
+        
+        if int(user_id) > num_users + 1:
+            break
+
+        timestamp = datetime.utcfromtimestamp(int(times_rawdata)).strftime('%Y-%m-%d %H:%M:%S')
+        
+        request_data['ratings'].append({
+            'user_id': user_id,
+            'movie_id': movie_id,
+            'rating': rating,
+            'timestamp': timestamp
+        })
+
+    response = requests.post(API_URL + 'ratings/', data=json.dumps(request_data), headers=headers)
+    print(response.text)
 
 
 if __name__ == '__main__':
-    num_users = 15
-    create_movies()
-    create_users(num_users)
+    num_users = 100
+    # create_movies()
+    # create_users(num_users)
     create_ratings(num_users)

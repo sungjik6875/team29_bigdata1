@@ -5,17 +5,17 @@ from rest_framework import serializers
 class ProfileSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     username = serializers.SerializerMethodField('get_username')
-    is_staff = serializers.SerializerMethodField('get_is_staff')
+    # is_staff = serializers.SerializerMethodField('get_is_staff')
 
     class Meta:
         model = Profile
-        fields = ('id', 'username', 'is_staff', 'gender', 'age', 'occupation')
+        fields = ('id', 'username', 'gender', 'age', 'occupation')
 
     def get_username(self, obj):
         return obj.user.username
 
-    def get_is_staff(self, obj):
-        return obj.user.is_staff
+    # def get_is_staff(self, obj):
+    #     return obj.user.is_staff
 
 
 class MovieSerializer(serializers.ModelSerializer):
