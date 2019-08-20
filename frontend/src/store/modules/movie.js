@@ -26,6 +26,20 @@ const actions = {
 const mutations = {
   setMovieSearchList(state, movies) {
     state.movieSearchList = movies.map(movie => movie)
+  },
+  sortMovies(state, key) {
+    
+    if (key === 'v') {
+      state.movieSearchList = state.movieSearchList.sort((a, b) => {
+        return a.viewCnt > b.viewCnt ? -1 : a.viewCnt < b.viewCnt ? 1 : 0;
+      })
+    }
+
+    if (key === 'r') {
+      state.movieSearchList = state.movieSearchList.sort((a, b) => {
+        return a.rating > b.rating ? -1 : a.rating < b.rating ? 1 : 0;
+      })
+    }
   }
 }
 
