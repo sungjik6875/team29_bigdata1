@@ -14,7 +14,7 @@ const mutations = {
 const actions = {
   async getUserInfo({ commit }, params) {
     const response = await api.getUserInfo(params)
-    console.log(response.data)
+    // console.log(response.data)
     const userInfo = {
       id: response.data.id,
       username: response.data.username,

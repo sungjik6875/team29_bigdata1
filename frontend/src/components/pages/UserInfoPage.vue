@@ -18,9 +18,6 @@
         <div> {{ userInfo.gender }}</div>
         <div> {{ userInfo.age }}</div>
         <div> {{ userInfo.occupation }}</div>
-        <div v-for="movie in userInfo.movies">
-          {{ movie }}
-        </div>
       </v-flex>
     </v-layout>
   </v-container>

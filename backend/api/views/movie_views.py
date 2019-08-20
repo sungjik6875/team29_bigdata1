@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
-from api.models import Movie
+from api.models import Movie, Rating, Profile
+from django.contrib.auth.models import User
 
 from api.serializers import MovieSerializer
 from rest_framework.response import Response
@@ -56,6 +57,4 @@ def movies(request):
         return Response(status=status.HTTP_200_OK)
 
 
-    
-    
-
+        

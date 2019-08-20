@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from api.models import create_profile
 
 from django.contrib.auth.models import User
-from api.models import Profile
+from api.models import Profile, Rating, Movie
 from api.serializers import ProfileSerializer
 
 from django.shortcuts import get_object_or_404
