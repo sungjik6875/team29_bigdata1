@@ -1,32 +1,44 @@
 <template>
-  <v-form ref="form">
-    <v-text-field v-model="keyword" label="키워드를 입력하세요(영화명/장르)" />
-    <v-layout justify-center pa-10>
-      <v-btn large color="indigo white--text" @click="onSubmitByName">Name</v-btn>
-      <v-btn large color="green white--text" @click="onSubmitByGenre">Genres</v-btn>
-    </v-layout>
-  </v-form>
+  <div>
+    <v-select
+      ref="key"
+      :items="items"
+      label="키워드를 선택하세요."
+      solo
+    ></v-select>
+    <v-form ref="form">
+      <v-text-field v-model="keyword" label="키워드를 입력하세요." />
+      <v-layout justify-center pa-10>
+        <v-btn large color="indigo white--text" @click="onSubmitByKeyword">Search</v-btn>
+      </v-layout>
+    </v-form>
+  </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    keyword: ""
+    keyword: '',
+    items: ['영화명', '장르'],
   }),
   methods: {
-    onSubmitByName: function() {
-      const params = {
-        title: this.keyword,
-        key: "title"
-      };
-      this.$emit('submitByName', params)
-    },
-    onSubmitByGenre: function() {
-      const params = {
-        genre: this.keyword,
-        key: "genre"
-      };
-      this.$emit('submitByGenre', params)
+    onSubmitByKeyword: function() {
+      const key = this.$refs.key.$el.innerText;
+      let params;
+      if (key.length > 3) {
+        alert('키워드를 선택하세요.')
+      } else if (key === '영화명') {
+        params = {
+          title: this.keyword,
+          key: "title"
+        };
+      } else {
+        params = {
+          genre: this.keyword,
+          key: "genre"
+        };
+      }
+      this.$emit('submitByKeyword', params)
     }
   }
 };

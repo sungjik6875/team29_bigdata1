@@ -7,9 +7,15 @@
       <v-flex xs6>
         <div class="display-2 pa-10">영화 검색</div>
         <MovieSearchForm 
-          @submitByName="searchMovies"
-          @submitByGenre="searchMovies"
+          @submitByKeyword="searchMovies"
         />
+        <v-select
+          v-model="sortingKey"
+          ref="sortingKeySelectBox"
+          :items="sortingKeys"
+          label="정렬 기준을 선택하세요."
+          solo
+        ></v-select>
       </v-flex>
 
       <!-- 검색 결과 -->
@@ -33,11 +39,19 @@ export default {
     MovieList,
     MovieSearchForm
   },
-  data: () => ({}),
+  data: () => ({
+    sortingKeys: ['평점', '조회수'],
+    sortingKey: ''
+  }),
   computed: {
     ...mapState({
       movieList: state => state.movie.movieSearchList
-    })
+    }),
+  },
+  watch: {
+    sortingKey: function() {
+      this.sortMovies('v')
+    }
   },
   methods: {
     ...mapActions("movie", ["searchMovies"]),
@@ -48,6 +62,6 @@ export default {
     sortMoviesByScores() {
       this.sortMovies('r')
     },
-  },
+  }
 };
 </script>
