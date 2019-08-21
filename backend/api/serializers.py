@@ -11,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'username', 'gender', 'age', 'occupation')
+        fields = ['id', 'username', 'gender', 'age', 'occupation']
 
     def __init__(self, *args, **kwargs):
         if kwargs.get('many') == False:
@@ -35,7 +35,7 @@ class MovieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'genres_array', 'view_cnt', 'average_rating')
+        fields =['id', 'title', 'genres_array', 'view_cnt', 'average_rating']
 
     def __init__(self, *args, **kwargs):
         if kwargs.get('many') == False:

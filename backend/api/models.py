@@ -65,7 +65,7 @@ class Movie(models.Model):
         total = 0
         for rating in ratings:
             total += rating.rating
-        return round(total/views, 3)
+        return round(total/views, 2)
 
     @property
     def users(self):

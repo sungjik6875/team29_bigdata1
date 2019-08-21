@@ -11,25 +11,29 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: EmptyPage, name: 'home' },
-    { path: '/movies/search', 
+    { 
+      path: '/', 
+      component: EmptyPage, 
+      name: 'home',
+      beforeEnter(from, to, next) {
+        next('movies/search')
+      }
+    },
+    { 
+      path: '/movies/search', 
       component: MovieSearchPage,
-      children: [
-        {
-          path: 'movieList',
-          component: MovieList,
-          name: 'movie-list',
-          props: true
-        },
-        {
-          path: ':movieId',
-          component: MovieDetailPage,
-          name: 'movie-detail'
-        }
-      ],
       name: 'movie-search' 
     },
-    { path: '/userInfo', component: UserInfoPage, name: 'user-info' },
+    { 
+      path: '/userInfo', 
+      component: UserInfoPage, 
+      name: 'user-info' 
+    },
+    {
+      path: '/movieInfo',
+      component: MovieDetailPage,
+      name: 'movie-info'
+    }
   ],
   scrollBehavior() {
     return { x: 0, y: 0 }

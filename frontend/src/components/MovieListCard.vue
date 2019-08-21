@@ -7,7 +7,7 @@
             <v-layout column>
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title class="headline">
+                  <v-list-item-title class="headline" @click="goToMovieDetail">
                     {{ title }}
                   </v-list-item-title>
                   <v-list-item-subtitle>{{ genresStr }}</v-list-item-subtitle>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { eBus } from '../api/eventBus'
 
 export default {
   props: {
@@ -73,6 +74,11 @@ export default {
     genresStr: function() {
       return this.genres.join(" / ");
     },
+  },
+  methods: {
+    goToMovieDetail() {
+      eBus.$emit('goToMovieDetail', this._props)
+    }
   }
 };
 </script>

@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { eBus } from './api/eventBus'
 
 export default {
   data: () => ({
@@ -54,6 +55,11 @@ export default {
         icon: "fas fa-user",
         text: "사용자 찾기",
         path: "user-info"
+      },
+      { 
+        icon: null,
+        text: "영화 상세 페이지",
+        path: 'movie-info'
       }
     ]
   }),
@@ -61,7 +67,19 @@ export default {
     goTo: function(path) {
       this.$router.push({ name: path });
     }
-  }
+  },
+  created() {
+    eBus.$on('goToMovieDetail', (movieInfo) => {
+      // console.log("eBus received", movieInfo)
+      this.$router.push({ 
+        name: 'movie-info',
+        params: movieInfo
+      })
+    })
+  },
+  destroyed() {
+    eBus.$off('goToMovieDetal')
+  },
 };
 </script>
 

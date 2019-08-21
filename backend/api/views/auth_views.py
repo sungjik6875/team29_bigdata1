@@ -33,7 +33,7 @@ def get_user_info(request):
     print(request.GET.get("userId"))
     user_id = request.GET.get("userId")
     print("django", user_id)
-    user = User.objects.get(pk=user_id)
+    user = get_object_or_404(User, pk=user_id)
     user_info = Profile.objects.get(user=user)
 
     serializer = ProfileSerializer(user_info, many=False)

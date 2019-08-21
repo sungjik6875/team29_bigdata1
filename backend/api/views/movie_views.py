@@ -57,4 +57,14 @@ def movies(request):
         return Response(status=status.HTTP_200_OK)
 
 
+
+
+@api_view(['GET'])
+def get_users_watched_movie(request):
+    
+    if request.method == 'GET':
+        movie_id = request.GET.get('id', request.GET.get('movie_id', None))
+        movie = Movie.objects.get(pk=movie_id)
+        serializer = MovieSerializer(movie, many=False)
         
+        return Response(data=serializer.data, status=status.HTTP_200_OK)

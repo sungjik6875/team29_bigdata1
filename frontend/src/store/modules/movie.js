@@ -5,6 +5,8 @@ const state = {
   // shape: [{ id, title, genres, viewCnt, rating }]
   movieSearchList: [],
   testMessage: '',
+
+  userListForMovie: []
 }
 
 // actions
@@ -20,6 +22,11 @@ const actions = {
     }))
     commit('setMovieSearchList', movies)
   },
+  async getMovieInfo({ commit }, params) {
+    const { data: { users }} = await api.getMovieInfo(params)
+    // console.log(users)
+    commit('setUserListForMovie', users)
+  }
 }
 
 // mutations
@@ -40,6 +47,9 @@ const mutations = {
         return a.rating > b.rating ? -1 : a.rating < b.rating ? 1 : 0;
       })
     }
+  },
+  setUserListForMovie(state, users) {
+    state.userListForMovie = users.map(user => user)
   }
 }
 

@@ -11,7 +11,8 @@ urlpatterns = [
 
     # movie
     url('movies/$', movie_views.movies, name='movies'),
+    url('movie/$', movie_views.get_users_watched_movie, name="get_users_watched_movie"),
 
     # rating
-    url('ratings/$', rating_views.ratings, name="ratings"),
+    url('ratings/', rating_views.ratings, name="ratings"),
 ]

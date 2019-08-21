@@ -2,6 +2,7 @@
 <template>
   <v-container grid-list-md text-center>
     <v-layout justify-center wrap>
+      
       <!-- 검색 폼 -->
       <v-flex xs6>
         <div class="display-2 pa-10">영화 검색</div>
@@ -10,13 +11,12 @@
           @submitByGenre="searchMovies"
         />
       </v-flex>
+
       <!-- 검색 결과 -->
-      
       <v-flex xs7>
         <v-btn large color="red white--text" @click="sortMoviesByViews">Views</v-btn>
         <v-btn large color="red white--text" @click="sortMoviesByScores">Scores</v-btn>
-        <!-- <MovieList :movie-list-cards="movieList" /> -->
-        <router-view />
+        <MovieList :movie-list-cards="movieList" />
       </v-flex>
     </v-layout>
   </v-container>
@@ -25,10 +25,12 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import MovieSearchForm from "../MovieSearchForm";
-// import MovieList from "../MovieList";
+import MovieList from "../MovieList";
+
+
 export default {
   components: {
-    // MovieList,
+    MovieList,
     MovieSearchForm
   },
   data: () => ({}),
@@ -42,23 +44,10 @@ export default {
     ...mapMutations("movie", ["sortMovies"]),
     sortMoviesByViews() {
       this.sortMovies('v')
-      this.showMovieList()
     },
     sortMoviesByScores() {
       this.sortMovies('r')
-      this.showMovieList()
     },
-    showMovieList() {
-      this.$router.push({ 
-        name: 'movie-list', 
-        params: {
-          movieListCards : this.movieList 
-        }
-      })
-    }
   },
-  created() {
-    this.showMovieList()
-  }
 };
 </script>

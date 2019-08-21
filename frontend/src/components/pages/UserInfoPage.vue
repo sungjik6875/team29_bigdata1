@@ -13,17 +13,13 @@
       </v-flex>
       <!-- 검색 결과 -->
       <v-flex xs7>
-        <div> 유저 정보 </div>
-        <div> {{ userInfo.username }}</div>
-        <div> {{ userInfo.gender }}</div>
-        <div> {{ userInfo.age }}</div>
-        <div> {{ userInfo.occupation }}</div>
-        <div> 해당 유저가 관람한 영화 </div>
-        <ul>
-          <li v-for="movie in userInfo.movies">
-            {{ movie }}
-          </li>
-        </ul>
+        <user-info-box
+          :username="userInfo.username"
+          :gender="userInfo.gender"
+          :age="userInfo.age"
+          :occupation="userInfo.occupation"
+          :movies="userInfo.movies"
+        />
       </v-flex>
     </v-layout>
   </v-container>
@@ -31,6 +27,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import UserInfoBox from '../UserInfo'
 
 
 export default {
@@ -38,6 +35,9 @@ export default {
     return {
       keyword: ""
     }
+  },
+  components: {
+    UserInfoBox
   },
   computed: {
     ...mapState({
