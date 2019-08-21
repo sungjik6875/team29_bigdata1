@@ -47,17 +47,17 @@ export default {
     drawer: null,
     choices: [
       {
-        icon: "mdi-movie",
+        icon: "fas fa-search",
         text: "영화 검색",
         path: "movie-search"
       },
       { 
-        icon: "fas fa-user",
+        icon: "mdi-face",
         text: "사용자 찾기",
         path: "user-info"
       },
       { 
-        icon: null,
+        icon: "mdi-movie",
         text: "영화 상세 페이지",
         path: 'movie-info'
       }
@@ -84,6 +84,10 @@ export default {
 </script>
 
 <style>
+ul li {
+ list-style-type: none;
+}
+
 #keep .v-navigation-drawer__border {
   display: none;
 }
