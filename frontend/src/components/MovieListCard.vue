@@ -82,3 +82,14 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.headline {
+  &:hover {
+    cursor: pointer;
+    color: #3F51B5;
+    text-decoration: underline;
+  }
+}
+
+</style>

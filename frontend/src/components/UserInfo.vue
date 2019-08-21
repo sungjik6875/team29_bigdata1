@@ -1,12 +1,12 @@
 <template>
   <!-- 해당 사용자가 존재할 경우 -->
   <div v-if="_props.username">
-    <div> 유저 정보 </div>
+    <div class="user-info-title"> 유저 정보 </div>
     <div>{{ username }}</div>
     <div>{{ gender }}</div>
     <div>{{ age }}</div>
     <div>{{ occupation }}</div>
-    <div> 해당 유저가 관람한 영화 </div>
+    <div class="user-info-title"> 해당 유저가 관람한 영화 </div>
     <ul>
       <li v-for="movie in movies">
         {{ movie }}
@@ -26,6 +26,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.user-info-title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.5rem;
+}
 </style>
