@@ -22,7 +22,7 @@
 
   <!-- 해당 사용자가 존재하지 않을 경우 -->
   <div v-else>
-    <div class="user-info-title">해당 사용자가 존재하지 않습니다.</div>
+    <div class="user-info-title"></div>
   </div>
 </template>
 

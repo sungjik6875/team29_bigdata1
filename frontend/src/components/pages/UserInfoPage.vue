@@ -1,6 +1,7 @@
 <template>
   <v-container grid-list-md text-center>
     <v-layout justify-center wrap>
+
       <!-- 검색 폼 -->
       <v-flex xs6>
         <div class="display-2 pa-10">사용자 찾기</div>
@@ -11,6 +12,7 @@
           </v-layout>
         </v-form>
       </v-flex>
+      
       <!-- 검색 결과 -->
       <v-flex xs7>
         <user-info-box
