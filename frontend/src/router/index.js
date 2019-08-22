@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Store from '../store'
 
+import { toastNotification } from '../plugins/vueToast'
+
 import EmptyPage from '../components/pages/EmptyPage'
 import MovieSearchPage from '../components/pages/MovieSearchPage'
 import UserInfoPage from '../components/pages/UserInfoPage'
@@ -40,7 +42,11 @@ const router = new VueRouter({
           await Store._actions['movie/getMovieInfo'][0](from.query);
           next();
         } else {
-          alert("영화를 선택해주세요.")
+          toastNotification.$toast.open({
+            message: "영화를 선택해주세요",
+            type: 'default',
+            position: 'top',
+          })
           next('/movies/search')
         }
       }
