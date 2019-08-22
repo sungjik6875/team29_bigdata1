@@ -29,13 +29,17 @@
     </v-navigation-drawer>
 
     <v-content>
-      <Loader v-show="isLoading"/>
-      <v-container fluid fill-height class="grey lighten-4">
-        <v-layout justify-center align-center>
-          <!-- each pages will be placed here -->
-          <router-view />
-        </v-layout>
-      </v-container>
+      <div class="content-box">
+        <Loader v-if="isLoading"/>
+        <div :class="{ isBlind : isLoading }">
+          <v-container fluid fill-height class="grey lighten-4">
+            <v-layout justify-center align-center>
+              <!-- each pages will be placed here -->
+              <router-view />
+            </v-layout>
+          </v-container>
+        </div class="content-box">
+      </div>
     </v-content>
   </v-app>
 </template>
@@ -100,5 +104,14 @@ ul li {
 
 #keep .v-navigation-drawer__border {
   display: none;
+}
+
+.isBlind {
+  opacity: 0.5;
+}
+
+.content-box {
+  margin: 0 auto;
+  position: relative;
 }
 </style>
