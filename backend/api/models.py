@@ -17,7 +17,10 @@ class Profile(models.Model):
         ratings = self.user.rating_set.all()
         movies_list = []
         for rating in ratings:
-            movies_list.append(rating.movie.title)
+            movies_list.append({
+                'id' : rating.movie.id,
+                'title': rating.movie.title
+            })
         return movies_list
 
 

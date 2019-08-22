@@ -29,6 +29,7 @@
     </v-navigation-drawer>
 
     <v-content>
+      <Loader v-show="isLoading"/>
       <v-container fluid fill-height class="grey lighten-4">
         <v-layout justify-center align-center>
           <!-- each pages will be placed here -->
@@ -40,9 +41,14 @@
 </template>
 
 <script>
-import { eBus } from './api/eventBus'
+import { mapState } from 'vuex';
+import { eBus } from './api/eventBus';
+import Loader from './components/Loader';
 
 export default {
+  components: {
+    Loader
+  },
   data: () => ({
     drawer: null,
     choices: [
@@ -68,12 +74,16 @@ export default {
       this.$router.push({ name: path });
     }
   },
+  computed: {
+    ...mapState('app', ['isLoading'])
+  },
   created() {
-    eBus.$on('goToMovieDetail', (movieInfo) => {
-      // console.log("eBus received", movieInfo)
+    eBus.$on('goToMovieDetail', (movieId) => {
       this.$router.push({ 
         name: 'movie-info',
-        params: movieInfo
+        query: { 
+          movieId 
+        }
       })
     })
   },

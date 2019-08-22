@@ -63,7 +63,7 @@ def movies(request):
 def get_users_watched_movie(request):
     
     if request.method == 'GET':
-        movie_id = request.GET.get('id', request.GET.get('movie_id', None))
+        movie_id = request.GET.get('movieId', None)
         movie = Movie.objects.get(pk=movie_id)
         serializer = MovieSerializer(movie, many=False)
         

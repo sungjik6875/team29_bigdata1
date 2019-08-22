@@ -29,7 +29,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import UserInfoBox from '../UserInfo'
+import UserInfoBox from '../UserInfoBox'
 
 
 export default {

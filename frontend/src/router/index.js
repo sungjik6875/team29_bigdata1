@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Store from '../store'
+
 import EmptyPage from '../components/pages/EmptyPage'
 import MovieSearchPage from '../components/pages/MovieSearchPage'
 import UserInfoPage from '../components/pages/UserInfoPage'
@@ -15,8 +17,8 @@ const router = new VueRouter({
       path: '/', 
       component: EmptyPage, 
       name: 'home',
-      beforeEnter(from, to, next) {
-        next('movies/search')
+      redirect: { 
+        name: 'movie-search' 
       }
     },
     { 
@@ -32,7 +34,13 @@ const router = new VueRouter({
     {
       path: '/movieInfo',
       component: MovieDetailPage,
-      name: 'movie-info'
+      name: 'movie-info',
+      async beforeEnter(from, to, next) {
+        Store._mutations['app/switchLoader'][0]();
+        await Store._actions['movie/getMovieInfo'][0](from.query);
+        Store._mutations['app/switchLoader'][0]();
+        next();
+      }
     }
   ],
   scrollBehavior() {

@@ -13,8 +13,8 @@
     <div class="user-info-container">
       <div class="user-info-title"> 해당 유저가 관람한 영화 </div>
       <ul>
-        <li v-for="movie in movies">
-          {{ movie }}
+        <li @click="goToMovieDetail(movie.id)" v-for="movie in movies">
+          {{ movie.title }} / {{ movie.id }}
         </li>
       </ul>
     </div>
@@ -27,8 +27,15 @@
 </template>
 
 <script>
+import { eBus } from '../api/eventBus'
+
 export default {
-  props: ['username', 'gender', 'age', 'occupation', 'movies']
+  props: ['username', 'gender', 'age', 'occupation', 'movies'],
+  methods: {
+    goToMovieDetail(movieId) {
+      eBus.$emit('goToMovieDetail', movieId);
+    }
+  }
 }
 </script>
 
@@ -57,6 +64,7 @@ ul > li {
   font-family: 'Lato', sans-serif;
   transition: all 1s;
   &:hover {
+    cursor: pointer;
     background-color: rgb(83, 118, 194);
     box-shadow: 1px 1px 5px grey;
     color: whitesmoke;

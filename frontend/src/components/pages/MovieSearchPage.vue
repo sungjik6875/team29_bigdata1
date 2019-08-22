@@ -20,8 +20,6 @@
 
       <!-- 검색 결과 -->
       <v-flex xs7>
-        <v-btn large color="red white--text" @click="sortMoviesByViews">Views</v-btn>
-        <v-btn large color="red white--text" @click="sortMoviesByScores">Scores</v-btn>
         <MovieList :movie-list-cards="movieList" />
       </v-flex>
     </v-layout>
@@ -50,18 +48,13 @@ export default {
   },
   watch: {
     sortingKey: function() {
-      this.sortMovies('v')
+      const key = this.sortingKey === '평점'? 'r' : 'v'
+      this.sortMovies(key)
     }
   },
   methods: {
     ...mapActions("movie", ["searchMovies"]),
     ...mapMutations("movie", ["sortMovies"]),
-    sortMoviesByViews() {
-      this.sortMovies('v')
-    },
-    sortMoviesByScores() {
-      this.sortMovies('r')
-    },
   }
 };
 </script>

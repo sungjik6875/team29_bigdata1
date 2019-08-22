@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     goToMovieDetail() {
-      eBus.$emit('goToMovieDetail', this._props)
+      eBus.$emit('goToMovieDetail', this._props.id)
     }
   }
 };

@@ -4,14 +4,14 @@
     <div class="movie-info-container">
       <div class="movie-info-title">{{ movieInfo.title }}</div>
       <div class="movie-info">{{ parseGenreArrayStr }}</div>
-      <div class="movie-info"><i class="fas fa-eye"></i> {{ movieInfo.viewCnt }}</div>
+      <div class="movie-info"><i class="fas fa-eye"></i> {{ movieInfo.view_cnt }}</div>
       <div class="movie-info" v-html="drawStarRating"></div>
     </div>
     
     <div class="movie-info-container">
       <div class="movie-info-title">이 영화를 관람한 유저들</div>
       <ul>
-        <li v-for="user in this.userListForMovie">{{ user }}</li>
+        <li v-for="user in movieInfo.users">{{ user }}</li>
       </ul>
     </div>
   </div>
@@ -26,21 +26,13 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  data() {
-    return {
-      movieInfo: { 
-        type: Object, 
-        default: {}
-      },
-    }
-  },
   computed: {
-    ...mapState('movie', ['userListForMovie']),
+    ...mapState('movie', ['movieInfo']),
     parseGenreArrayStr() {
       let genreArrayStr = ''
-      for(let i = 0; i < this.movieInfo.genres.length; i++) {
-        genreArrayStr += this.movieInfo.genres[i];
-        if (i < this.movieInfo.genres.length - 1) {
+      for(let i = 0; i < this.movieInfo.genres_array.length; i++) {
+        genreArrayStr += this.movieInfo.genres_array[i];
+        if (i < this.movieInfo.genres_array.length - 1) {
           genreArrayStr += ' | '
         }
       }
@@ -48,7 +40,7 @@ export default {
     },
     drawStarRating() {
       let stars = ''
-      const score = this.movieInfo.rating;
+      const score = this.movieInfo.average_rating;
       for(let i = 1; i < 6; i++) {
         if (i <= score) {
           stars += '<i class="fas fa-star"></i>'
@@ -60,21 +52,8 @@ export default {
           }      
         }
       }
-      stars += ` <strong>${this.movieInfo.rating}</strong>`
+      stars += ` <strong>${this.movieInfo.average_rating}</strong>`
       return stars
-    }
-  },
-  methods: {
-    ...mapActions('movie', ['getMovieInfo']),
-  },
-  created() {
-    // console.log("movieDetail", this.$route.params);
-    this.movieInfo = this.$route.params;
-    const params = {
-      id: this.movieInfo.id
-    }
-    if (this.movieInfo.id) {
-      this.getMovieInfo(params)
     }
   }
 }

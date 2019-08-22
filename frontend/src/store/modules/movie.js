@@ -6,26 +6,36 @@ const state = {
   movieSearchList: [],
   testMessage: '',
 
-  userListForMovie: []
+  movieInfo: {}
 }
 
 // actions
 const actions = {
   async searchMovies({ commit }, params) {
-    const response = await api.searchMovies(params)
-    const movies = response.data.map(data => ({
-      id: data.id,
-      title: data.title,
-      genres: data.genres_array,
-      viewCnt: data.view_cnt,
-      rating: data.average_rating,
-    }))
-    commit('setMovieSearchList', movies)
+    try{
+      commit('app/switchLoader', null, { root: true })
+      const response = await api.searchMovies(params)
+      const movies = response.data.map(data => ({
+        id: data.id,
+        title: data.title,
+        genres: data.genres_array,
+        viewCnt: data.view_cnt,
+        rating: data.average_rating,
+      }))
+      commit('app/switchLoader', null, { root: true })
+      commit('setMovieSearchList', movies)
+    } catch(error) {
+      console.log("Failed in searching Movies", error)
+    }   
   },
   async getMovieInfo({ commit }, params) {
-    const { data: { users }} = await api.getMovieInfo(params)
-    // console.log(users)
-    commit('setUserListForMovie', users)
+    try {
+      const { data } = await api.getMovieInfo(params)
+      commit('setMovieInfo', data)
+    } catch(error) {
+      console.log("Failed in getting Infomation about the Movie", error)
+    }
+    
   }
 }
 
@@ -48,8 +58,8 @@ const mutations = {
       })
     }
   },
-  setUserListForMovie(state, users) {
-    state.userListForMovie = users.map(user => user)
+  setMovieInfo(state, movieInfo) {
+    state.movieInfo = movieInfo 
   }
 }
 
