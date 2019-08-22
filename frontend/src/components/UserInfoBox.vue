@@ -54,6 +54,11 @@ export default {
       return this.shownMovies
     }
   },
+  watch: {
+    username: function() {
+      this.shownMovies = 10
+    }
+  },
   methods: {
     goToMovieDetail(movieId) {
       eBus.$emit('goToMovieDetail', movieId);
@@ -61,7 +66,7 @@ export default {
     addMoviesToList() {
       this.shownMovies += 10
     }
-  }
+  },
 }
 </script>
 
@@ -103,4 +108,5 @@ ul > li {
   align-items: center;
   padding: 1vh 0;
 }
+
 </style>

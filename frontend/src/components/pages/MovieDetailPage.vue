@@ -72,6 +72,11 @@ export default {
       return this.users
     }
   },
+  watch: {
+    'movieInfo.title': function() {
+      this.users = 10
+    }
+  },
   methods: {
     addUserList() {
       this.users += 10

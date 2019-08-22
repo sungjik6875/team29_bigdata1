@@ -36,8 +36,13 @@ const router = new VueRouter({
       component: MovieDetailPage,
       name: 'movie-info',
       async beforeEnter(from, to, next) {
-        await Store._actions['movie/getMovieInfo'][0](from.query);
-        next();
+        if (from.query.movieId) {
+          await Store._actions['movie/getMovieInfo'][0](from.query);
+          next();
+        } else {
+          alert("영화를 선택해주세요.")
+          next('/movies/search')
+        }
       }
     }
   ],
