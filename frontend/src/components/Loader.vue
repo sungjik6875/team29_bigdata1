@@ -24,7 +24,7 @@ export default {
 #pulse-loader {
   position: fixed;
   z-index: 100;
-  left: 60vw;
+  left: 50vw;
   top: 50vh;
   width: 300px;
   height: 300px;

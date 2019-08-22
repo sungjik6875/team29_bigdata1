@@ -11,8 +11,16 @@
     <div class="movie-info-container">
       <div class="movie-info-title">이 영화를 관람한 유저들</div>
       <ul>
-        <li v-for="user in movieInfo.users">{{ user }}</li>
+        <li :key="`userList${idx}`" v-for="(user, idx) in movieInfo.users" v-if="idx < numberOfUserList">{{ user }}</li>
       </ul>
+      <div class="button-container">
+        <v-btn 
+          large color="indigo white--text"
+          v-if="users < movieInfo.users.length" 
+          @click="addUserList"
+        ><i class="fas fa-plus"></i>
+        </v-btn>
+      </div>
     </div>
   </div>
 
@@ -26,6 +34,11 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
+  data() {
+    return {
+      users: 10
+    }
+  },
   computed: {
     ...mapState('movie', ['movieInfo']),
     parseGenreArrayStr() {
@@ -54,6 +67,14 @@ export default {
       }
       stars += ` <strong>${this.movieInfo.average_rating}</strong>`
       return stars
+    },
+    numberOfUserList() {
+      return this.users
+    }
+  },
+  methods: {
+    addUserList() {
+      this.users += 10
     }
   }
 }
@@ -65,12 +86,12 @@ export default {
 }
 
 .movie-info-container {
-  &:first-of-type {
+  &:not(last-of-type) {
     margin: 3vh 0 3vh 0;
     padding: 5% 0 5% 0;
     border-style: solid;
     border-color: black;
-    border-width : 3px 0 3px 0;
+    border-width : 3px 0 0 0;
   }
 }
 
@@ -101,5 +122,12 @@ ul > li {
     box-shadow: 1px 1px 5px grey;
     color: whitesmoke;
   }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh 0;
 }
 </style>

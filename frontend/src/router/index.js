@@ -36,9 +36,7 @@ const router = new VueRouter({
       component: MovieDetailPage,
       name: 'movie-info',
       async beforeEnter(from, to, next) {
-        Store._mutations['app/switchLoader'][0]();
         await Store._actions['movie/getMovieInfo'][0](from.query);
-        Store._mutations['app/switchLoader'][0]();
         next();
       }
     }

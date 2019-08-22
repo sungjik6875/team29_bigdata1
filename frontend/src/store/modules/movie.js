@@ -30,7 +30,9 @@ const actions = {
   },
   async getMovieInfo({ commit }, params) {
     try {
+      commit('app/switchLoader', null, { root: true })
       const { data } = await api.getMovieInfo(params)
+      commit('app/switchLoader', null, { root: true })
       commit('setMovieInfo', data)
     } catch(error) {
       console.log("Failed in getting Infomation about the Movie", error)

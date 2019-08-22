@@ -6,12 +6,12 @@
       label="키워드를 선택하세요."
       solo
     ></v-select>
-    <v-form ref="form">
-      <v-text-field v-model="keyword" label="키워드를 입력하세요." />
+    <div ref="form">
+      <v-text-field v-model="keyword" @keyup.enter="onSubmitByKeyword" label="키워드를 입력하세요." />
       <v-layout justify-center pa-10>
         <v-btn large color="indigo white--text" @click="onSubmitByKeyword">Search</v-btn>
       </v-layout>
-    </v-form>
+    </div>
   </div>
 </template>
 

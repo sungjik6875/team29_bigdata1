@@ -13,10 +13,23 @@
     <div class="user-info-container">
       <div class="user-info-title"> 해당 유저가 관람한 영화 </div>
       <ul>
-        <li @click="goToMovieDetail(movie.id)" v-for="movie in movies">
-          {{ movie.title }} / {{ movie.id }}
+        <li 
+            :key="`movieList${idx}`"
+            @click="goToMovieDetail(movie.id)" 
+            v-for="(movie, idx) in movies"
+            v-if="idx < numberOfMoviesInList"
+        >
+          {{ movie.title }}
         </li>
       </ul>
+      <div class="button-container">
+        <v-btn 
+          large color="indigo white--text"
+          v-if="shownMovies < movies.length" 
+          @click="addMoviesToList"
+        ><i class="fas fa-plus"></i>
+        </v-btn>
+      </div>
     </div>
   </div>
 
@@ -31,9 +44,22 @@ import { eBus } from '../api/eventBus'
 
 export default {
   props: ['username', 'gender', 'age', 'occupation', 'movies'],
+  data() {
+    return {
+      shownMovies: 10
+    }
+  },
+  computed: {
+    numberOfMoviesInList() {
+      return this.shownMovies
+    }
+  },
   methods: {
     goToMovieDetail(movieId) {
       eBus.$emit('goToMovieDetail', movieId);
+    },
+    addMoviesToList() {
+      this.shownMovies += 10
     }
   }
 }
@@ -69,5 +95,12 @@ ul > li {
     box-shadow: 1px 1px 5px grey;
     color: whitesmoke;
   }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh 0;
 }
 </style>

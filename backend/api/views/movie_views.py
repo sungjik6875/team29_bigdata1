@@ -1,10 +1,12 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.db.models import Q
+
 from api.models import Movie, Rating, Profile
 from django.contrib.auth.models import User
-
 from api.serializers import MovieSerializer
-from rest_framework.response import Response
+
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -56,6 +58,25 @@ def movies(request):
         movie.delete()
         return Response(status=status.HTTP_200_OK)
 
+
+
+@api_view(['GET'])
+def movies_search(request):
+    #search Movies by Title and Genres
+    movies = Movie.objects.all()
+    query = Q()
+
+    title = request.GET.get('title', None)
+    genre = request.GET.get('genre', None)
+    if title:
+        query.add(Q(title__icontains=title), query.OR)
+    if genre:
+        query.add(Q(genre__icontains=genre), query.AND)
+
+    movies = movies.filter(query)
+    serializer = MovieSerializer(movies, many=True)
+
+    return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
 
