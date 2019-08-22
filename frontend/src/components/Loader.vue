@@ -1,9 +1,9 @@
 <template>
   <div class="loader-div">
     <div ref="loader" class="loader">
-      <span class="circle circle1"></span>
-      <span class="circle circle2"></span>
-      <span class="circle circle3"></span>
+      <span class="square square1"></span>
+      <span class="square square2"></span>
+      <span class="square square3"></span>
     </div>
   </div>
 </template>
@@ -32,9 +32,8 @@ export default {
   width: 100%;
 }
 
-.circle {
+.square {
   margin: 0 1vw;
-  border-radius: 100%;
   background-color: #3F51B5;
   width: 75px;
   height: 75px;
@@ -45,10 +44,10 @@ export default {
   animation-fill-mode: backwards;
 }
 
-.circle2 {
+.square2 {
   animation-delay: 0.5s;
 }
-.circle3 {
+.square3 {
   animation-delay: 1s;
 }
 
